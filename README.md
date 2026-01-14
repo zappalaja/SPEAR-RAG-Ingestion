@@ -52,16 +52,17 @@ scripts/nougat_stage.conf
 
 
 Key variables:
-
+```text
 INPUT_PDF_DIR=...     # directory containing input PDFs
 NOUGAT_OUT_DIR=...    # raw Nougat outputs
 MERGED_MD_DIR=...     # final cleaned Markdown output
 LOG_DIR=...           # per-PDF Nougat logs
 CONDA_ENV=nougat
-
+```
 Run Stage 1
+```bash
 bash scripts/nougat_stage.sh scripts/nougat_stage.conf
-
+```
 
 This stage:
 
@@ -82,23 +83,23 @@ This stage:
   manifest.json
 
 Output structure:
-
+```text
 MERGED_MD_DIR/
 ├── paper1.md
 ├── paper2.md
 ├── pdf_sha256.json
 └── manifest.json
-
+```
 ### Stage 2: RAG ingestion (Markdown → Chroma)
 Configure paths
 
 Edit:
-
+```bash
 scripts/rag_stage.conf
-
+```
 
 Key variables:
-
+```text
 MERGED_MD_DIR=...     # output from Stage 1
 CHROMA_DIR=...        # Chroma persistence directory
 COLLECTION=...        # Chroma collection name
@@ -106,10 +107,11 @@ EMBEDDING_MODEL=...   # must match query usage
 CHUNK_SIZE=1200
 CHUNK_OVERLAP=150
 CONDA_ENV=rag_new
-
+```
 Run Stage 2
+```bash
 bash scripts/rag_stage.sh scripts/rag_stage.conf
-
+```
 
 This stage:
 
@@ -129,14 +131,14 @@ This stage is write-only:
 ### Querying the vector database
 
 To query the database from the terminal:
-
+```bash
 conda activate rag_new
 
 ./scripts/query_chroma.py \
   --chroma_dir /path/to/chroma_db \
   --collection nougat_merged \
   --query "Atlantic Meridional Overturning circulation"
-
+```
 
 This is a read-only operation and does not modify the database.
 
