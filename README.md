@@ -132,7 +132,7 @@ This stage is write-only:
 
 To query the database from the terminal:
 ```bash
-conda activate rag_new
+conda activate rag
 
 ./scripts/query_chroma.py \
   --chroma_dir /path/to/chroma_db \
