@@ -47,9 +47,9 @@ pip install -r envs/rag.pip.txt
 Configure paths
 
 Edit:
-
+```bash
 scripts/nougat_stage.conf
-
+```
 
 Key variables:
 ```text
