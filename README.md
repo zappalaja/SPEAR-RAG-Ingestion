@@ -26,20 +26,20 @@ Clean Markdown
 [Stage 2] RAG ingestion (chunk + embed + persist)   (conda env: rag_new)
   ↓
 Chroma vector database
-
+```
 
 ## Setup
 
 ### Nougat environment
 ```bash
-conda env create -f envs/nougat.conda.yml
+conda env create -f envs/nougat.yml
 conda activate nougat
 pip install -r envs/nougat.pip.txt
 ```
 
 ### RAG environment
 ```bash
-conda env create -f envs/rag.conda.yml
+conda env create -f envs/rag.yml
 conda activate rag_new
 pip install -r envs/rag.pip.txt
 ```
