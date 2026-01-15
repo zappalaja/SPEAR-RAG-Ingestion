@@ -5,7 +5,6 @@
 - For each source PDF, chooses the best matching markdown file (largest).
 - Applies boilerplate filtering ONCE (so RAG stage stays clean).
 - Writes cleaned .md files into MERGED_MD_DIR.
-- Writes pdf_sha256.json and manifest.json for provenance.
 
 Usage:
   python merge_nougat_md.py --pdf_dir INPUT_PDF_DIR --nougat_out NOUGAT_OUT_DIR --merged_out MERGED_MD_DIR
