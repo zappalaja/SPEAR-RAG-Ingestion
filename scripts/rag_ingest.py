@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Ingest merged Markdown into Chroma (no queries, no sanity checks)."""
+"""Ingest merged Markdown into Chroma."""
 
 import argparse
 from pathlib import Path
