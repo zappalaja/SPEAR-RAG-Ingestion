@@ -17,7 +17,7 @@ source "$CONF"
 
 mkdir -p "$NOUGAT_OUT_DIR" "$MERGED_MD_DIR" "$LOG_DIR"
 
-# --- Activate conda env (robust) ---
+# --- Activate conda env ---
 if [[ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]]; then
   source "$HOME/miniconda3/etc/profile.d/conda.sh"
 elif [[ -f "$HOME/anaconda3/etc/profile.d/conda.sh" ]]; then
