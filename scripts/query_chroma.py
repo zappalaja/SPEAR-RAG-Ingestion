@@ -33,9 +33,11 @@ def main():
 
     print(f"\nQuery: {args.query}\n")
     for i, r in enumerate(results, 1):
+        title = r.metadata.get("title", "Unknown Title")
         src = r.metadata.get("source", "unknown")
         snippet = r.page_content[:500].replace("\n", " ")
-        print(f"[{i}] source={src}")
+        print(f"[{i}] Title: {title}")
+        print(f"    Source: {src}")
         print(f"    {snippet}...\n")
 
 if __name__ == "__main__":
