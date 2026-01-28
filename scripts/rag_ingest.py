@@ -2,6 +2,7 @@
 """Ingest merged Markdown into Chroma."""
 
 import argparse
+import json
 from pathlib import Path
 
 def main():
@@ -23,6 +24,21 @@ def main():
     from langchain_community.embeddings import HuggingFaceEmbeddings
     from langchain_community.vectorstores import Chroma
 
+    # Load manifest to get PDF titles
+    manifest_path = md_dir / "manifest.json"
+    source_to_title = {}
+    if manifest_path.exists():
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        for entry in manifest:
+            if entry.get("merged_md") and entry.get("pdf"):
+                # Map merged_md path to PDF filename (which contains the title)
+                merged_path = Path(entry["merged_md"]).resolve()
+                pdf_title = entry["pdf"].replace(".pdf", "")
+                source_to_title[str(merged_path)] = pdf_title
+        print(f"Loaded {len(source_to_title)} title mappings from manifest.json")
+    else:
+        print("Warning: manifest.json not found, titles will not be added to metadata")
+    
     loader = DirectoryLoader(
         str(md_dir),
         glob="**/*.md",
@@ -33,6 +49,15 @@ def main():
     docs = loader.load()
     print(f"Loaded {len(docs)} markdown docs from {md_dir}")
 
+    # Add title metadata to each document
+    for doc in docs:
+        source = str(Path(doc.metadata.get("source", "")).resolve())
+        if source in source_to_title:
+            doc.metadata["title"] = source_to_title[source]
+        else:
+            # Fallback: use filename stem as title
+            doc.metadata["title"] = Path(source).stem
+    
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=args.chunk_size,
         chunk_overlap=args.chunk_overlap
